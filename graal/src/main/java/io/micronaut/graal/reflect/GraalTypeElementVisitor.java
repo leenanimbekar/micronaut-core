@@ -102,16 +102,17 @@ public class GraalTypeElementVisitor implements TypeElementVisitor<Object, Objec
     @Override
     public void visitClass(ClassElement element, VisitorContext context) {
         if (!isSubclass && !element.hasStereotype(Deprecated.class)) {
-            if (element.hasAnnotation(Introspected.class)) {
-                packages.add(element.getPackageName());
-                final String beanName = element.getName();
-                addBean(beanName);
-                resolveClassData(beanName + "[]");
-                final String[] introspectedClasses = element.getValue(Introspected.class, "classes", String[].class).orElse(StringUtils.EMPTY_STRING_ARRAY);
-                for (String introspectedClass : introspectedClasses) {
-                    addBean(introspectedClass);
-                }
-            } else if (element.hasAnnotation(TypeHint.class)) {
+//            if (element.hasAnnotation(Introspected.class)) {
+//                packages.add(element.getPackageName());
+//                final String beanName = element.getName();
+//                addBean(beanName);
+//                resolveClassData(beanName + "[]");
+//                final String[] introspectedClasses = element.getValue(Introspected.class, "classes", String[].class).orElse(StringUtils.EMPTY_STRING_ARRAY);
+//                for (String introspectedClass : introspectedClasses) {
+//                    addBean(introspectedClass);
+//                }
+//            } else
+            if (element.hasAnnotation(TypeHint.class)) {
                 packages.add(element.getPackageName());
                 final String[] introspectedClasses = element.stringValues(TypeHint.class);
                 final TypeHint typeHint = element.synthesize(TypeHint.class);
